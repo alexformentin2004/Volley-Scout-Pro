@@ -1,5 +1,5 @@
 /* Versioned app-shell cache. Never caches user records or external requests. */
-const PREFIX='vsp-pro-'+self.registration.scope+'-',CACHE=PREFIX+'beta-1.0';
+const PREFIX='vsp-pro-'+self.registration.scope+'-',CACHE=PREFIX+'beta-1.1';
 const ASSETS=['./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS.map(x=>new Request(new URL(x,self.registration.scope),{cache:'reload'}))))));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{for(const k of await caches.keys())if(k.startsWith(PREFIX)&&k!==CACHE)await caches.delete(k);await self.clients.claim()})()));
